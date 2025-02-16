@@ -53,12 +53,34 @@ const employeeSchema = new mongoose.Schema({
         type: String
     },
     created_at: {
-        type: Date
+        type: Date,
+        default: Date.now
     },
     updated_at: {
-        type: Date
+        type: Date,
+        default: Date.now
     }
 })
+
+// pre middleware to update date information was updated and make sure date created is present
+employeeSchema.pre('save', (next) => {
+    console.log("Before employee saved")
+    let now = Date.now()
+    this.updated_at = now
+
+    if (!this.created_at) {
+        this.created_at = now
+    }
+    next()
+});
+
+employeeSchema.pre('findOneAndUpdate', (next) => {
+    console.log("Before findOneAndUpdate")
+    let now = Date.now()
+    this.updated_at = now
+    console.log(this.updated_at)
+    next()
+  });
 
 // export employee schema
 module.exports = mongoose.model("employee", employeeSchema)
