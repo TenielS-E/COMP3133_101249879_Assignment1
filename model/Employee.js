@@ -25,14 +25,15 @@ const employeeSchema = new mongoose.Schema({
                 return false;
              },
              message: "The employees gender is Male, Female, or Other."
-        }
+        },
+        required: true
     },
     designation: {
         type: String,
         required: true
     },
     salary: { // >=1000
-        type: Float64Array,
+        type: Number,
         required: true,
         validate: {
             validator: function(val) {
@@ -83,4 +84,4 @@ employeeSchema.pre('findOneAndUpdate', (next) => {
   });
 
 // export employee schema
-module.exports = mongoose.model("employee", employeeSchema)
+module.exports = mongoose.model("Employee", employeeSchema)

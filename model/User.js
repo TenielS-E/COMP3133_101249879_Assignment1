@@ -46,4 +46,4 @@ userSchema.pre('findOneAndUpdate', (next) => {
   });
 
 // export user schema
-module.exports = mongoose.model("user", userSchema)
+module.exports = mongoose.model("User", userSchema)
